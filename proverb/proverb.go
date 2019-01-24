@@ -8,14 +8,11 @@ func Proverb(rhyme []string) []string {
 	out := []string{}
 
 	for i := range rhyme {
-		if i == 0 {
-			continue
+		if i+1 == len(rhyme) {
+			out = append(out, fmt.Sprintf("And all for the want of a %s.", rhyme[0]))
+		} else {
+			out = append(out, fmt.Sprintf("For want of a %s the %s was lost.", rhyme[i], rhyme[i+1]))
 		}
-		out = append(out, fmt.Sprintf("For want of a %s the %s was lost.", rhyme[i-1], rhyme[i]))
-	}
-
-	if len(rhyme) >= 1 {
-		out = append(out, fmt.Sprintf("And all for the want of a %s.", rhyme[0]))
 	}
 
 	return out
