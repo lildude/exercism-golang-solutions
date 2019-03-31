@@ -8,7 +8,7 @@ func IsIsogram(word string) bool {
 	seen := make(map[rune]struct{})
 	for _, letter := range word {
 		lcLetter := unicode.ToLower(letter)
-		if lcLetter == '-' || lcLetter == ' ' {
+		if !unicode.IsLetter(lcLetter) {
 			continue
 		}
 		_, yes := seen[lcLetter]
