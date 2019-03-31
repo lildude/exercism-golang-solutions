@@ -1,28 +1,26 @@
 // Package scrabble provides a method to calculate scrabble scores.
 package scrabble
 
-import (
-	"strings"
-)
+import "unicode"
 
 // Score returns the Scrabble score for a word passed to it.
 func Score(word string) int {
 	score := 0
-	for _, letter := range strings.ToLower(word) {
-		switch string(letter) {
-		case "a", "e", "i", "o", "u", "l", "n", "r", "s", "t":
+	for _, letter := range word {
+		switch unicode.ToLower(letter) {
+		case 'a', 'e', 'i', 'o', 'u', 'l', 'n', 'r', 's', 't':
 			score++
-		case "d", "g":
+		case 'd', 'g':
 			score += 2
-		case "b", "c", "m", "p":
+		case 'b', 'c', 'm', 'p':
 			score += 3
-		case "f", "h", "v", "w", "y":
+		case 'f', 'h', 'v', 'w', 'y':
 			score += 4
-		case "k":
+		case 'k':
 			score += 5
-		case "j", "x":
+		case 'j', 'x':
 			score += 8
-		case "q", "z":
+		case 'q', 'z':
 			score += 10
 		}
 	}
