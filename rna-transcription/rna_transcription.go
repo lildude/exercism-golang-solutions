@@ -1,10 +1,6 @@
 // Package strand takes a DNA string and returns its RNA complement
 package strand
 
-import (
-	"strings"
-)
-
 // DnaToRnaMap maps DNA nucleotides to their RNA complements
 var DnaToRnaMap = map[rune]rune{
 	'G': 'C',
@@ -15,10 +11,7 @@ var DnaToRnaMap = map[rune]rune{
 
 // ToRNA takes a DNA string and returns its RNA complement
 func ToRNA(dna string) string {
-	var rna string
-	if !strings.ContainsAny(dna, "GCTA") {
-		return ""
-	}
+	rna := ""
 	for _, l := range dna {
 		rna += string(DnaToRnaMap[l])
 	}
