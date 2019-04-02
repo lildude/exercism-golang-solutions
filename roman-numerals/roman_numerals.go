@@ -3,25 +3,25 @@ package romannumerals
 
 import (
 	"errors"
-	"sort"
-	"strings"
 )
 
-//
-var romanNumeralMap = map[int]string{
-	1000: "M",
-	900:  "CM",
-	500:  "D",
-	400:  "CD",
-	100:  "C",
-	90:   "XC",
-	50:   "L",
-	40:   "XL",
-	10:   "X",
-	9:    "IX",
-	5:    "V",
-	4:    "IV",
-	1:    "I",
+var romanNumerals = []struct {
+	number int
+	roman  string
+}{
+	{1000, "M"},
+	{900, "CM"},
+	{500, "D"},
+	{400, "CD"},
+	{100, "C"},
+	{90, "XC"},
+	{50, "L"},
+	{40, "XL"},
+	{10, "X"},
+	{9, "IX"},
+	{5, "V"},
+	{4, "IV"},
+	{1, "I"},
 }
 
 // ToRomanNumeral converts a normal number to Roman Numerals
@@ -31,22 +31,10 @@ func ToRomanNumeral(number int) (string, error) {
 	}
 
 	roman := ""
-	remainder := number
-
-	// Go iterates over maps in a random order so we need to force order by pulling out the keys,
-	// ordering them and then iterating through these to pull in the correct element from the map.
-	keys := make([]int, 0)
-	for k := range romanNumeralMap {
-		keys = append(keys, k)
-	}
-	sort.Sort(sort.Reverse(sort.IntSlice(keys)))
-
-	for remainder > 0 {
-		for _, k := range keys {
-			if (remainder / k) > 0 {
-				roman += strings.Repeat(romanNumeralMap[k], (remainder / k))
-			}
-			remainder = remainder % k
+	for _, transform := range romanNumerals {
+		for number >= transform.number {
+			roman += transform.roman
+			number -= transform.number
 		}
 	}
 	return roman, nil
